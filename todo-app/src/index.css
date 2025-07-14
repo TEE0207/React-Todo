@@ -50,3 +50,7 @@
   width: 30%;
   height: auto;
 }
+
+.strikeThrough{
+  text-decoration: line-through;
+}

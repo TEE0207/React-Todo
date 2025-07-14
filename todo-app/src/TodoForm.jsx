@@ -17,7 +17,7 @@ export default function TodoForm(){
 
     //  Get and load data from local storage
     useEffect(()=>{
-        const storedTodos = localStorage.getItem("ReactTodos")
+        const storedTodos = localStorage.getItem("reactTodos")
         // if storedTodos is not empty parse it and setEnteredTodos to it
         if(storedTodos){
             setEnteredTodos(JSON.parse(storedTodos))
