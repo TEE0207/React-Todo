@@ -54,3 +54,18 @@
 .strikeThrough{
   text-decoration: line-through;
 }
+
+.outer{
+  margin : 10px 0;
+  border : 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+.inner{
+  background-color: green;
+  padding: 1px;
+  text-align: right;
+  transition: 0.5 ease-in;
+}
