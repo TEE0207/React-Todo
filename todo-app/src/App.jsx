@@ -19,9 +19,9 @@ function App() {
      {/* <TodoFour /> */}
      {/* <WeatherDashboard /> */}
 
-     {/* <QuizApp /> */}
+     <QuizApp />
 
-     <Progress />
+     {/* <Progress /> */}
     </>
   )
 }

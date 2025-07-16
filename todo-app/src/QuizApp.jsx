@@ -21,17 +21,27 @@ const questions = [
 const QuizApp = () => {
   
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
-  const [feedback, setFeedback] = useState('');
-  const [score, setScore] = useState(0);
-  const [quizComplete, setQuizComplete] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0); // Which question card are we looking at? (starts at 0, which means the first card)
+
+
+  const [selectedAnswer, setSelectedAnswer] = useState(''); //Which answer did you pick? (starts empty)
+
+  const [feedback, setFeedback] = useState(''); //What does the computer tell you? "Correct!" or "Incorrect!" (starts empty)
+
+
+  const [score, setScore] = useState(0); //How many you got right (starts at 0)
+
+  const [quizComplete, setQuizComplete] = useState(false); //Are we done with all questions? (starts as "no/false")
+
+
+  const [showFeedback, setShowFeedback] = useState(false); //Should we show if you're right or wrong? (starts as "no/false")
+
+
 
   const handleSubmit = () => {
-    if (!selectedAnswer) return;
+    if (!selectedAnswer) return; // // If no answer picked, do nothing
 
-    const isCorrect = selectedAnswer === questions[currentQuestion].correct;
+    const isCorrect = selectedAnswer === questions[currentQuestion].correct; 
     setFeedback(isCorrect ? 'Correct!' : 'Incorrect!');
     setShowFeedback(true);
 
@@ -47,7 +57,7 @@ const QuizApp = () => {
         setSelectedAnswer('');
         setShowFeedback(false);
         setFeedback('');
-      }, 1500);
+      }, 10000);
     }
   };
 
@@ -81,17 +91,24 @@ const QuizApp = () => {
     );
   }
 
+
+
+
+
+
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Quiz App</h1>
 
       <div className="mb-6">
         <p className="text-sm text-gray-600 mb-2">
+            {/* currentQuestion is set to zero in state so we add 1 to it OF questions.length. i.e Question 1 OF 3 */}
           Question {currentQuestion + 1} of {questions.length}
         </p>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
             className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+            // Width = (0+1) divided by 3 multiply by 100 then add % to it to make it the width
             style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
           ></div>
         </div>
@@ -99,19 +116,29 @@ const QuizApp = () => {
 
       <div>
         <p className="text-xl font-semibold mb-6">
+            {/* Go into questions with the index number [currentQuestion] .question. i.e go into the full array of questions, use currentQuestion as index number of the object literal you want to show then from the object literal pick the question property*/}
           {questions[currentQuestion].question}
         </p>
 
         <div className="space-y-3 mb-6">
+            {/* Now let us map over the option. i.e go into the questions array with the currentQuestion set to be the index, then go into the options property and map over it's array */}
           {questions[currentQuestion].options.map((option, index) => (
             <div key={index} className="flex items-center">
               <input
                 type="radio"
+                //Gives each radio button a unique name like "option0", "option1", "option2", "option3".
                 id={`option${index}`}
+
                 name="quiz-option"
+
+                //Sets what answer this radio button represents gotten from the map option. you know that the map loop over the options array 4 times, so value will keep the option for each loop
                 value={option}
+                // checked will check if selectedAnswer === option i.e the value, mark the radio button.  
                 checked={selectedAnswer === option}
+
                 onChange={(e) => setSelectedAnswer(e.target.value)}
+
+
                 className="mr-3 w-4 h-4 text-blue-600"
                 disabled={showFeedback}
               />
