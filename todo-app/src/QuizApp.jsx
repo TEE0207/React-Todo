@@ -135,7 +135,8 @@ const QuizApp = () => {
                 value={option}
                 // checked will check if selectedAnswer === option i.e the value, mark the radio button.  
                 checked={selectedAnswer === option}
-
+                 
+                // This onChange will set value for selectedAnswer, so out of the 4 options, anyone we picked here will make our selectedAnswer have a value
                 onChange={(e) => setSelectedAnswer(e.target.value)}
 
 
