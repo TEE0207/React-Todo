@@ -40,30 +40,34 @@ const QuizApp = () => {
 
 
   const handleSubmit = () => {
-    
-    if (!selectedAnswer) return; // // If no answer picked, do nothing
 
-    const isCorrect = selectedAnswer === questions[currentQuestion].correct; 
-    setFeedback(isCorrect ? 'Correct!' : 'Incorrect!');
-    setShowFeedback(true);
+    if (!selectedAnswer) return; // // If no answer picked, do nothing //If the user hasn’t selected anything, do nothing.
+
+    const isCorrect = selectedAnswer === questions[currentQuestion].correct; //Compares the user’s selected answer to the correct one.
+
+
+    setFeedback(isCorrect ? 'Correct!' : 'Incorrect!'); //Show the feedback text depending on correctness.
+
+    setShowFeedback(true); // Set showFeedback to true so we can show it.
 
     if (isCorrect) {
       setScore(score + 1);
-    }
+    } //If the answer is correct, increase the score by 1.
 
     if (currentQuestion + 1 >= questions.length) {
-      setQuizComplete(true);
+      setQuizComplete(true); //If it's the last question, mark the quiz as complete. (>=)
+                                 // else
     } else {
-      setTimeout(() => {
-        setCurrentQuestion(currentQuestion + 1);
-        setSelectedAnswer('');
-        setShowFeedback(false);
-        setFeedback('');
-      }, 1000);
+      setTimeout(() => { //It gives the user time to read the feedback ("Correct!" / "Incorrect!") before moving on. // delays the code inside by 1,000 milliseconds (1seconds). Before running the code inside here
+        setCurrentQuestion(currentQuestion + 1); //Moves to the next question by increasing the index
+        setSelectedAnswer(''); // Clears the selected answer so no radio button is checked for the next question
+        setShowFeedback(false); //Hides the feedback box before showing the next question
+        setFeedback(''); // Clears the "Correct!" or "Incorrect!" message so it's clean for the next one
+      }, 1000); 
     }
   };
 
-  const resetQuiz = () => {
+  const resetQuiz = () => { // When user clicks “Take Quiz Again”, reset all the values to start over.
     setCurrentQuestion(0);
     setSelectedAnswer('');
     setFeedback('');
@@ -72,17 +76,23 @@ const QuizApp = () => {
     setShowFeedback(false);
   };
 
-  if (quizComplete) {
+  if (quizComplete) { // if thIf quizComplete === true, show: “Quiz Complete” , Score , Reset button
+
+    
+
+   
     return (
       <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-green-600 mb-6">
           Quiz Complete!
         </h1>
         <p className="text-xl text-center mb-6">
-          You scored {score} out of {questions.length}!
+            {/* The score */}
+          You scored {score} out of {questions.length}! 
         </p>
         <div className="text-center">
           <button
+        //   Reset Button
             onClick={resetQuiz}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
@@ -110,7 +120,9 @@ const QuizApp = () => {
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
             className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-            // Width = (0+1) divided by 3 multiply by 100 then add % to it to make it the width
+            // progress bar using currentQuestion Number and question length number 
+            // ((0 + 1) / 3) * 100 = (1 / 3) * 100 = 33.33%
+
             style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
           ></div>
         </div>
@@ -143,7 +155,9 @@ const QuizApp = () => {
 
 
                 className="mr-3 w-4 h-4 text-blue-600"
-                disabled={showFeedback}
+                disabled={showFeedback} // disabled={showFeedback} means:
+
+                   //“ After clicking on submit showFeedback is set to "true" so once it's set to true you cannot click on another radio button again and we show whether the answer was correct or wrong, don’t let the user change their answer anymore.”
               />
               <label
                 htmlFor={`option${index}`}
@@ -155,11 +169,14 @@ const QuizApp = () => {
           ))}
         </div>
 
-        {!showFeedback && (
+        {!showFeedback && ( //Shows the submit button only if feedback hasn’t been shown yet and this is when the submit button is yet to be clicked on because when you click on the submit button showFeedback will be set to true
           <button
             type="button"
             onClick={handleSubmit}
+
+            // if there is no answer selected yet, disabled the button, like not let the button be clickeable 
             disabled={!selectedAnswer}
+            // disable button color is here in the tailwind css
             className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           >
             Submit
