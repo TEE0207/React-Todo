@@ -21,24 +21,26 @@ const questions = [
 const QuizApp = () => {
   
 
-  const [currentQuestion, setCurrentQuestion] = useState(0); // Which question card are we looking at? (starts at 0, which means the first card)
+  const [currentQuestion, setCurrentQuestion] = useState(0); // Which question card are we looking at? (starts at 0, which means the first card) // Keeps track of which question you're on (starts at 0 = first question)
 
 
-  const [selectedAnswer, setSelectedAnswer] = useState(''); //Which answer did you pick? (starts empty)
+  const [selectedAnswer, setSelectedAnswer] = useState(''); //Which answer did you pick? Tracks the answer the user selected (starts empty) // 
 
-  const [feedback, setFeedback] = useState(''); //What does the computer tell you? "Correct!" or "Incorrect!" (starts empty)
-
-
-  const [score, setScore] = useState(0); //How many you got right (starts at 0)
-
-  const [quizComplete, setQuizComplete] = useState(false); //Are we done with all questions? (starts as "no/false")
+   const [feedback, setFeedback] = useState(''); // Stores the text that says “Correct!” or “Incorrect!”
 
 
-  const [showFeedback, setShowFeedback] = useState(false); //Should we show if you're right or wrong? (starts as "no/false")
+
+  const [score, setScore] = useState(0); //How many you got right (starts at 0) //Keeps count of how many answers were correct
+
+  const [quizComplete, setQuizComplete] = useState(false); //Are we done with all questions? (starts as "no/false") //Becomes true when the last question is done — so we can show the final score
+
+
+  const [showFeedback, setShowFeedback] = useState(false); //Should we show if you're right or wrong? (starts as "no/false") // Decides if we should show the result (correct/incorrect) after clicking Submit
 
 
 
   const handleSubmit = () => {
+    
     if (!selectedAnswer) return; // // If no answer picked, do nothing
 
     const isCorrect = selectedAnswer === questions[currentQuestion].correct; 
@@ -57,7 +59,7 @@ const QuizApp = () => {
         setSelectedAnswer('');
         setShowFeedback(false);
         setFeedback('');
-      }, 10000);
+      }, 1000);
     }
   };
 
