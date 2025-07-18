@@ -157,7 +157,7 @@ const QuizApp = () => {
                 className="mr-3 w-4 h-4 text-blue-600"
                 disabled={showFeedback} // disabled={showFeedback} means:
 
-                   //“ After clicking on submit showFeedback is set to "true" so once it's set to true you cannot click on another radio button again and we show whether the answer was correct or wrong, don’t let the user change their answer anymore.”
+                   //“ After clicking on submit showFeedback is set to "true" so once it's set to true you cannot click on another radio button again and it will show whether the answer is correct or wrong, This won't allow the user to changetheir answer anymore.” This will lock the answer the user clicked on
               />
               <label
                 htmlFor={`option${index}`}
@@ -174,7 +174,7 @@ const QuizApp = () => {
             type="button"
             onClick={handleSubmit}
 
-            // if there is no answer selected yet, disabled the button, like not let the button be clickeable 
+            // if there is no answer selected yet, disabled the button, like not let the button be clickeable i.e when selectedAnswer is an empty string it means it's a false 
             disabled={!selectedAnswer}
             // disable button color is here in the tailwind css
             className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
@@ -183,13 +183,17 @@ const QuizApp = () => {
           </button>
         )}
 
-        {showFeedback && (
+        {showFeedback && ( // After clicking on the submit button show feedback will be set to true and when it is set to true this jsx will run 
           <div
             className={`text-center p-4 rounded-lg ${
+                // when feedback is correct show this a certain style and when it's wrong add a certain style 
               feedback === 'Correct!' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
             }`}
           >
+            {/* show the feed back here */}
             <p className="text-lg font-semibold">{feedback}</p>
+             
+             {/* if feedback is Incorrect show the correct answer */}
             {feedback === 'Incorrect!' && (
               <p className="text-sm mt-2">
                 The correct answer was: {questions[currentQuestion].correct}
