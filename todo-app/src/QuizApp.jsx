@@ -203,6 +203,8 @@ const QuizApp = () => {
         )}
       </div>
 
+      {/* At the buttom it will show the score  */}
+
       <div className="mt-6 text-center text-gray-600">
         <p>Score: {score} / {questions.length}</p>
       </div>
