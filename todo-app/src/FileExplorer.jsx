@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import json from './data.json';
+import { FaFolderPlus } from "react-icons/fa";
+
 
 // Single Node Component
 const Node = ({ node }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState({ });
 
   const handleToggle = () => {
-    setIsExpanded((prev) => !prev);
+    setIsExpanded((prev) => ({
+        ...prev,
+        [node.name] : !prev[node.name]
+    }));
   };
 
   return (
     <div style={{ marginLeft: 20, marginTop: 5 }}>
-      <div>
+
+      <div style={{display : "flex", flexDirection: "row" , alignItems: "center"}}>
+
         {/* Only show toggle button if it's a folder */}
         {node.isFolder && (
           <span
@@ -23,18 +30,28 @@ const Node = ({ node }) => {
               color: '#007bff',
             }}
           >
-            {isExpanded ? '-' : '+'}
+            {isExpanded?.[node.name] ? '-' : '+'}
           </span>
+          
         )}
 
         {/* Always show the name */}
         <span>{node.name}</span>
+        {
+          node.isFolder && (
+             <span style={{marginLeft : "0.5rem"}} onClick={()=> addNodeToList(node.id)}>
+           <FaFolderPlus />
+        </span>
+          )
+        }
+       
       </div>
 
       {/* Recursively render children if expanded */}
 
       {/* only show this children when it's expanded and when their is children in it */}
-      {isExpanded && node.children && (
+
+      {isExpanded?.[node.name] && node ?.children && (
         <div style={{ marginTop: 5 }}>
           <List list={node.children} />
         </div>
@@ -57,6 +74,37 @@ const List = ({ list }) => {
 // Main Component
 const FileExplorer = () => {
   const [data, setData] = useState(json);
+
+  const addNodeToList = (ParentId) =>{
+
+    const name = prompt("Enter Name")
+
+    const updateTree = (list) => {
+
+        return list.map(node => {
+            if(node.id === ParentId){
+                return {
+                    ...node,
+                    children : [...node.children, {id : "123", name :name, isFolder : true , children : []}]
+                }
+            }
+
+            if(node.children){
+                return{
+                    ...node,
+                    children : updateTree()
+                }
+            }
+        })
+
+
+
+    } ;
+
+    setData((prev) => updateTree(prev))
+  }
+
+
 
   return (
     <div className="App" style={{ padding: '20px', fontFamily: 'sans-serif' }}>
