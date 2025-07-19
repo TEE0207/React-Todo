@@ -1,13 +1,13 @@
 [
     {   "id" : "1",
         "name" :"public",
-        "isFolder" : "true",
+        "isFolder" : true,
         "children" : [
              
             {     
                  "id" : "2",
                  "name" :"index.html",
-                 "isFolder" : "false"
+                 "isFolder" : false
             }
 
         ]
@@ -16,23 +16,23 @@
    {    
           "id" : "3",
         "name" :"src",
-        "isFolder" : "true",
+        "isFolder" : true,
          "children" : [
             {    
                  "id" : "4",
                  "name" :"component",
-                 "isFolder" : "true",
+                 "isFolder" : true,
                  "children" : [ 
 
                     {   
                          "id" : "5",
                         "name" :"test",
-                        "isFolder" : "true",
+                        "isFolder" : true,
                         "children" : [
                             {   
                                  "id" : "6",
                                 "name" :"file.js",
-                               "isFolder" : "false"
+                               "isFolder" : false
                             }
                          ]
                     }
@@ -44,29 +44,29 @@
             {   
                  "id" : "7",
                 "name" :"App.js",
-                "isFolder" : "false"
+                "isFolder" : false
             },
 
             {   
                  "id" : "8",
                 "name" :"data.json",
-                "isFolder" : "false"
+                "isFolder" : false
             },
 
             {   
                  "id" : "9",
                 "name" :"index.js",
-                "isFolder" : "false"
+                "isFolder" : false
             }
             ,{  
                  "id" : "10",
                 "name" :"index.js",
-                "isFolder" : "false"
+                "isFolder" : false
             },
             {
                  "id" : "11",
                 "name" :"style.css",
-                "isFolder" : "false"
+                "isFolder" : false
             }
 
     ]
@@ -78,6 +78,6 @@
      {  
          "id" : "12",
         "name" :"package.json",
-        "isFolder" : "false"
+        "isFolder" : false
     }
 ]

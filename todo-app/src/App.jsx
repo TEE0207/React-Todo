@@ -1,3 +1,4 @@
+import FileExplorer from "./FileExplorer.jsx"
 import Progress from "./ProgressBar.jsx"
 import QuizApp from "./QuizApp.jsx"
 import TodoForm from "./TodoForm.jsx"
@@ -19,7 +20,8 @@ function App() {
      {/* <TodoFour /> */}
      {/* <WeatherDashboard /> */}
 
-     <QuizApp />
+     {/* <QuizApp /> */}
+     <FileExplorer />
 
      {/* <Progress /> */}
     </>
