@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import json from './data.json';
 import { FaFolderPlus } from "react-icons/fa";
+import { RiDeleteBin5Line } from "react-icons/ri";
+
 
 
 // Single Node Component
-const Node = ({ node }) => {
+const Node = ({ node , addNodeToList, deleteNodeFromList }) => {
   const [isExpanded, setIsExpanded] = useState({ });
 
   const handleToggle = () => {
@@ -44,6 +46,11 @@ const Node = ({ node }) => {
         </span>
           )
         }
+
+        <span style={{marginLeft : "0.3rem"}} onClick={()=> deleteNodeFromList(node.id)}>
+            <RiDeleteBin5Line />
+
+        </span>
        
       </div>
 
@@ -53,7 +60,7 @@ const Node = ({ node }) => {
 
       {isExpanded?.[node.name] && node ?.children && (
         <div style={{ marginTop: 5 }}>
-          <List list={node.children} />
+        <List list={node.children} addNodeToList ={addNodeToList} deleteNodeFromList={deleteNodeFromList}/>
         </div>
       )}
     </div>
@@ -61,11 +68,11 @@ const Node = ({ node }) => {
 };
 
 // Recursive List Component
-const List = ({ list }) => {
+const List = ({ list , addNodeToList ,deleteNodeFromList }) => {
   return (
     <div className="container">
       {list.map((node) => (
-        <Node key={node.id} node={node} />
+        <Node key={node.id} node={node} addNodeToList = {addNodeToList} deleteNodeFromList={deleteNodeFromList}/>
       ))}
     </div>
   );
@@ -85,16 +92,20 @@ const FileExplorer = () => {
             if(node.id === ParentId){
                 return {
                     ...node,
-                    children : [...node.children, {id : "123", name :name, isFolder : true , children : []}]
+                    children : [...node.children, {id : Date.now().toString(), 
+                        name :name, 
+                        isFolder : true ,
+                         children : []}]
                 }
             }
 
             if(node.children){
                 return{
                     ...node,
-                    children : updateTree()
+                    children : updateTree(node.children)
                 }
             }
+            return node;
         })
 
 
@@ -104,12 +115,31 @@ const FileExplorer = () => {
     setData((prev) => updateTree(prev))
   }
 
+  const deleteNodeFromList = (itemId) => {
+      
+    const updateTree = (list) => {
+
+        return list.filter((node) => node.id != itemId).map((node) => {
+            if(node.children) {
+                return {
+                    ...node,
+                  children :  updateTree(node.children)
+                }
+            }
+            return node;
+        })
+
+    }
+
+    setData((prev) => updateTree(prev))
+  }
+
 
 
   return (
     <div className="App" style={{ padding: '20px', fontFamily: 'sans-serif' }}>
       <h1>File / Folder Explorer</h1>
-      <List list={data} />
+      <List list={data} addNodeToList = {addNodeToList} deleteNodeFromList = {deleteNodeFromList} />
     </div>
   );
 };
